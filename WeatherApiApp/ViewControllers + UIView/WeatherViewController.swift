@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         task.resume()
     }
     
-    
+    /// This function changes the weatherImageView based on the temperature shown.
     func getWeatherIcon(for temperature: Int) -> UIImage {
         switch temperature {
         case ...0:
@@ -101,6 +101,7 @@ class ViewController: UIViewController {
 // MARK: - Background using CAGRADIENT
 extension ViewController {
     
+    /// This function is created for the daylight background of the app.
     func createSkyGradient(in view: UIView) {
         let whiteColor = UIColor.whiteColor.cgColor
         let blueColor = UIColor.blueColor.cgColor
@@ -112,6 +113,7 @@ extension ViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    /// This function is created for the night background of the app.
     func createNightGradient(in view: UIView) {
         let charcoalColor = UIColor.charcoalColor.cgColor
         let coolColor = UIColor.coolColor.cgColor
@@ -123,6 +125,7 @@ extension ViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    /// This function sets the background based on the hour.
     func setBackgroundGradient(for date: Date) {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
@@ -198,18 +201,16 @@ extension ViewController: CLLocationManagerDelegate {
         self.cityLabel.text = "Unknown location"
         self.presentError(title: "Error", message: "Could not determine your location")
     }
-    
+    /// This function transform longitude si latitude into city name based on user's location.
     func fetchCityName(latitude: Double, longitude: Double) {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: latitude, longitude: longitude)
         geoCoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
             guard let self = self else { return }
-            
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
-            
             if let placemark = placemarks?.first {
                 let cityName = placemark.locality ?? placemark.subLocality ?? "Unknown Location"
                 self.cityLabel.text = cityName

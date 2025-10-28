@@ -53,7 +53,7 @@ class MainUIView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Setare UI
+    //MARK: - UIView and SubView SETUP
     private func setupMainView() {
         addSubview(weatherimageView)
         addSubview(temperatureLabel)
